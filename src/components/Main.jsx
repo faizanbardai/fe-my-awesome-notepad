@@ -10,7 +10,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 export default function Note() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState();
-  const [addNewNote, setAddNewNote] = useState();
+  const [addNewNote, setAddNewNote] = useState(false);
   const fetchNotes = async () => {
     const response = await apiGetAllNotes();
     const notes = await response.json();
@@ -51,9 +51,10 @@ export default function Note() {
             setSelectedNote={setSelectedNote}
           />
           <div className="row">
-            <div className="col-sm-12 col-md-4">
+            <div className="col-sm-12 col-md-4 ">
               <NotesList
                 notes={notes}
+                selectedNote={selectedNote}
                 setSelectedNote={setSelectedNote}
                 setNotes={setNotes}
                 setAddNewNote={setAddNewNote}

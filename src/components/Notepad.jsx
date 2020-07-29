@@ -6,6 +6,7 @@ export default function Notepad(props) {
       <div className="form-group">
         <textarea
           placeholder="Type your note here..."
+          required
           className="form-control border-0"
           style={{ height: "300px" }}
           value={props.selectedNote.text}

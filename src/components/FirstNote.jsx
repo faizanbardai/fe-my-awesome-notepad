@@ -12,7 +12,7 @@ export default function FirstNote(props) {
         selectedNote={props.selectedNote}
         setSelectedNote={props.setSelectedNote}
       />
-      <div className="fixed-bottom">
+      <div className="fixed-bottom mb-2">
         <div className="container bg-light text-right">
           <button
             className="btn btn-outline-primary rounded-pill border-0"
