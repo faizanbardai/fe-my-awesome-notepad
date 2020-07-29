@@ -4,6 +4,8 @@ import Header from "./Header";
 import NotesList from "./NotesList";
 import Notepad from "./Notepad";
 import FirstNote from "./FirstNote";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function Note() {
   const [notes, setNotes] = useState([]);
@@ -28,7 +30,11 @@ export default function Note() {
 
   return (
     <>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
+          <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+        </div>
+      )}
       {!loading && addNewNote && (
         <FirstNote
           notes={notes}
