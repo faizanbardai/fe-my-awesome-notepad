@@ -21,6 +21,7 @@ export default function FirstNote(props) {
                 props.selectedNote.text
               ).then((response) => response.json());
               props.setNotes([newNote, ...props.notes]);
+              props.setSelectedNote(newNote);
               props.setAddNewNote(false);
             }}
           >
