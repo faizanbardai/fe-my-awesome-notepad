@@ -34,8 +34,8 @@ export default function NotesList(props) {
               onClick={() => props.setSelectedNote(note)}
               className="p-1 my-1 w-100"
             >
-              {note.text.length > 15
-                ? `${note.text.substring(0, 15)}...`
+              {note.text.length > 35
+                ? `${note.text.substring(0, 35)}...`
                 : note.text}
             </div>
           </div>
