@@ -86,21 +86,35 @@ export default function Note() {
           <div className="fixed-bottom mb-2">
             <div className="container bg-light text-right">
               {enableSave ? (
-                <button
-                  className="btn btn-outline-primary rounded-pill border-0"
-                  onClick={async () => {
-                    const updatedNote = await apiUpdateNote(
-                      selectedNote
-                    ).then((response) => response.json());
-                    let newNotesArray = notes.filter(
-                      (x) => x._id !== updatedNote._id
-                    );
-                    newNotesArray = [updatedNote, ...newNotesArray];
-                    setNotes(newNotesArray);
-                  }}
-                >
-                  Save
-                </button>
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary rounded-pill border-0 mr-2"
+                    onClick={() => {
+                      const oldNote = notes.find(
+                        (note) => note._id === selectedNote._id
+                      );
+                      setSelectedNote(oldNote);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-outline-primary rounded-pill border-0"
+                    onClick={async () => {
+                      const updatedNote = await apiUpdateNote(
+                        selectedNote
+                      ).then((response) => response.json());
+                      let newNotesArray = notes.filter(
+                        (x) => x._id !== updatedNote._id
+                      );
+                      newNotesArray = [updatedNote, ...newNotesArray];
+                      setNotes(newNotesArray);
+                    }}
+                  >
+                    Save
+                  </button>
+                </>
               ) : null}
             </div>
           </div>
