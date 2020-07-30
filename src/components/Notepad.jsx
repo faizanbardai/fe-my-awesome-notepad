@@ -8,7 +8,7 @@ export default function Notepad(props) {
           placeholder="Type your note here..."
           required
           className="form-control border-0"
-          style={{ height: "300px" }}
+          style={{ height: "500px" }}
           value={props.selectedNote.text}
           onChange={(e) => {
             props.setSelectedNote({
