@@ -11,6 +11,7 @@ export default function Note() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState();
   const [addNewNote, setAddNewNote] = useState(false);
+  const [enableSave, setEnableSave] = useState(false);
   const fetchNotes = async () => {
     const response = await apiGetAllNotes();
     const notes = await response.json();
@@ -28,6 +29,20 @@ export default function Note() {
     fetchNotes();
   }, []);
 
+  useEffect(() => {
+    if (selectedNote) {
+      setEnableSave(selectedNote.text !== "");
+    }
+  }, [notes, selectedNote]);
+
+  useEffect(() => {
+    if (notes.length > 0 && selectedNote && selectedNote._id) {
+      setEnableSave(
+        selectedNote.text !==
+          notes.find((note) => note._id === selectedNote._id).text
+      );
+    }
+  }, [notes, selectedNote]);
   return (
     <>
       {loading && (
@@ -40,6 +55,7 @@ export default function Note() {
           notes={notes}
           selectedNote={selectedNote}
           setNotes={setNotes}
+          enableSave={enableSave}
           setSelectedNote={setSelectedNote}
           setAddNewNote={setAddNewNote}
         />
@@ -69,21 +85,23 @@ export default function Note() {
           </div>
           <div className="fixed-bottom mb-2">
             <div className="container bg-light text-right">
-              <button
-                className="btn btn-outline-primary rounded-pill border-0"
-                onClick={async () => {
-                  const updatedNote = await apiUpdateNote(
-                    selectedNote
-                  ).then((response) => response.json());
-                  let newNotesArray = notes.filter(
-                    (x) => x._id !== updatedNote._id
-                  );
-                  newNotesArray = [updatedNote, ...newNotesArray];
-                  setNotes(newNotesArray);
-                }}
-              >
-                Save
-              </button>
+              {enableSave ? (
+                <button
+                  className="btn btn-outline-primary rounded-pill border-0"
+                  onClick={async () => {
+                    const updatedNote = await apiUpdateNote(
+                      selectedNote
+                    ).then((response) => response.json());
+                    let newNotesArray = notes.filter(
+                      (x) => x._id !== updatedNote._id
+                    );
+                    newNotesArray = [updatedNote, ...newNotesArray];
+                    setNotes(newNotesArray);
+                  }}
+                >
+                  Save
+                </button>
+              ) : null}
             </div>
           </div>
         </div>

@@ -14,19 +14,21 @@ export default function FirstNote(props) {
       />
       <div className="fixed-bottom mb-2">
         <div className="container bg-light text-right">
-          <button
-            className="btn btn-outline-primary rounded-pill border-0"
-            onClick={async () => {
-              const newNote = await apiSaveNote(
-                props.selectedNote.text
-              ).then((response) => response.json());
-              props.setNotes([newNote, ...props.notes]);
-              props.setSelectedNote(newNote);
-              props.setAddNewNote(false);
-            }}
-          >
-            Save
-          </button>
+          {props.enableSave ? (
+            <button
+              className="btn btn-outline-primary rounded-pill border-0"
+              onClick={async () => {
+                const newNote = await apiSaveNote(
+                  props.selectedNote.text
+                ).then((response) => response.json());
+                props.setNotes([newNote, ...props.notes]);
+                props.setSelectedNote(newNote);
+                props.setAddNewNote(false);
+              }}
+            >
+              Save
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
